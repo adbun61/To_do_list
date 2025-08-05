@@ -1,4 +1,4 @@
-# Simmple to do list whihch continue to edit and update 
+# Simple to do list whihch continue to edit and update 
 
 import sqlite3
 from datetime import datetime
