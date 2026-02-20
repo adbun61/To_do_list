@@ -39,20 +39,25 @@ def complete_task(task_id):
    conn.commit() 
 
 
+#function for editing the task descprtion
+def edit_task(task_id, description):
+    cursor.execute("UPDATE tasks SET description = ? where id = ?", (description, task_id))
+    conn.commit()                   
+
 def delete_task(task_id):
     cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
     conn.commit()
 
 # Maiin loop
 def main():
-
     while True:
         print("\n==== To-Do List ====")
         print("1. Add Task")
         print("2. Show Tasks")
         print("3. Mark Task as done")
         print("4. Delete a Task")
-        print("5. Exit")
+        print("5. Edit Task")
+        print("6. Exit")
 
         choice = input(" Enter your choice: ")
 
@@ -86,8 +91,18 @@ def main():
         elif choice == '4':
             task_id = input("What task ID do you want to delete? ")
             delete_task(task_id)
-    
+
         elif choice == '5':
+            try:
+                task_id = int(input("What task would you like to edit: "))
+                description = input("New description")
+                edit_task(task_id, description)
+            except ValueError:
+                    print("Invalid task ID. Must be a number.")
+
+
+    
+        elif choice == '6':
             print("\nExiting the To-Do List. ")
             conn.close()
             break
