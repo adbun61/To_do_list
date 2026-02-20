@@ -1,4 +1,4 @@
-# Simple to do list whihch continue to edit and update 
+# Simple to do list which continue to edit and update 
 
 import sqlite3
 from datetime import datetime
@@ -35,7 +35,7 @@ def show_task():
 
 # function for marking the task as done
 def complete_task(task_id):
-   cursor.execute(' UPDATE tasks SET status = 'complete' WHERE id = ?', (task_id,))
+   cursor.execute("UPDATE tasks SET status = 'complete' WHERE id = ?", (task_id,))
    conn.commit() 
 
 
