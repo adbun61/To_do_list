@@ -1,5 +1,5 @@
 # Import specific functions from the database file
-from todo_app.database import initialize_db, add_task, show_task, complete_task, edit_task, delete_task, close_app
+from todo_app.database import initialize_db, add_task, show_task, complete_task, incomplete_task, edit_task, delete_task, delete_complete, close_app
 
 
 
@@ -11,25 +11,17 @@ def main():
         print("1. Add Task")
         print("2. Show Tasks")
         print("3. Mark Task as done")
-        print("4. Delete a Task")
-        print("5. Edit Task")
-        print("6. Exit")
+        print("4. Mark Task as incomplete")
+        print("5. Delete a Task")
+        print("6. Delete all completed tasks")
+        print("7. Edit Task")
+        print("0. Exit")
 
         choice = input(" Enter your choice: ")
 
         if choice == '1':
             task = input("Please enter the task you would like to add: ")
-            while True:
-                add_description = input("Would you like to add a description? ")
-                if add_description == "yes":
-                    description = input("Please enter a description: ")
-                    break
-                elif add_description == "no":
-                    description = "N/A"
-                    break
-                else:
-                    print(f"incorrect choice please try again ")
-
+            description = input("Please enter a description: ")
             add_task(task, description)
 
     
@@ -45,20 +37,29 @@ def main():
 
 
         elif choice == '4':
+            try:
+                task_id = int(input("Enter task ID: "))
+                incomplete_task(task_id)
+            except ValueError:
+                    print("Invalid task ID. Must be a number.")
+
+        elif choice == '5':
             task_id = input("What task ID do you want to delete? ")
             delete_task(task_id)
 
-        elif choice == '5':
+        elif choice == '6':
+             delete_complete()
+
+
+        elif choice == '7':
             try:
                 task_id = int(input("What task would you like to edit: "))
                 description = input("New description: ")
                 edit_task(task_id, description)
             except ValueError:
                     print("Invalid task ID. Must be a number.")
-
-
     
-        elif choice == '6':
+        elif choice == '0':
             print("\nExiting the To-Do List. ")
             close_app()
             print("\nHave a lovely day. ")

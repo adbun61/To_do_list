@@ -37,11 +37,21 @@ def complete_task(task_id):
    cursor.execute("UPDATE tasks SET status = 'complete' WHERE id = ?", (task_id,))
    conn.commit() 
 
+# function for marking the task as not done
+def incomplete_task(task_id):
+   cursor.execute("UPDATE tasks SET status = 'pending' WHERE id = ?", (task_id,))
+   conn.commit() 
+
 
 #function for editing the task descprtion
 def edit_task(task_id, description):
     cursor.execute("UPDATE tasks SET description = ? where id = ?", (description, task_id))
     conn.commit()                   
+
+#function for deleting all completed tasks
+def delete_complete():
+    cursor.execute("DELETE FROM tasks WHERE status = 'complete'")
+    conn.commit()
 
 #function for deleting tasks
 def delete_task(task_id):
